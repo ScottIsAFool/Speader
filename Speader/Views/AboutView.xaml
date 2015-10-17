@@ -1,0 +1,269 @@
+﻿<views:SpeaderBasePage x:Class="Speader.Views.AboutView"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:local="using:Speader.Views"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:controls="using:Speader.Controls"
+                        xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+                        xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+                        xmlns:views="using:Speader.Views"
+                        mc:Ignorable="d"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                        DataContext="{Binding About, Source={StaticResource Locator}}">
+    <interactivity:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{Binding ViewLoadedCommand}" />
+        </core:EventTriggerBehavior>
+    </interactivity:Interaction.Behaviors>
+
+    <Grid Margin="0,32,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <controls:FerretLabsLogo Width="150"
+                                 HorizontalAlignment="Left" />
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel>
+                <Border Background="{ThemeResource AltBackgroundBrush}"
+                        Margin="0,0,0,12"
+                        Padding="19,6">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1.5*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Website"
+                                   x:Uid="WebsiteLabel"
+                                   HorizontalAlignment="Left"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   Margin="0,6,0,6" 
+                                   Visibility="Collapsed"/>
+
+                        <TextBlock Text="Twitter"
+                                   Grid.Row="1"
+                                   Grid.Column="0"
+                                   x:Uid="TwitterLabel"
+                                   HorizontalAlignment="Left"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   Margin="0,6,0,6" />
+
+                        <TextBlock Text="Blog"
+                                   x:Uid="BlogLabel"
+                                   Grid.Row="2"
+                                   Grid.Column="0"
+                                   HorizontalAlignment="Left"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   Margin="0,6,0,6" />
+
+
+                        <controls:CustomButton Grid.Row="0"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right"
+                                               Style="{StaticResource EmptyButtonStyle}"
+                                               Margin="-10,-10,0,-10"
+                                               Padding="0"
+                                               TapCommand="{Binding WebsiteCommand}"
+                                               Visibility="Collapsed">
+                            <TextBlock Text="{Binding Website}"
+                                       Style="{StaticResource BaseTextBlockStyle}"
+                                       Margin="0,6,0,6" />
+                        </controls:CustomButton>
+
+                        <controls:CustomButton Grid.Row="1"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right"
+                                               Style="{StaticResource EmptyButtonStyle}"
+                                               Margin="-10,-10,0,-10"
+                                               Padding="0"
+                                               TapCommand="{Binding TwitterCommand}">
+                            <TextBlock Text="{Binding Twitter}"
+                                       Style="{StaticResource BaseTextBlockStyle}"
+                                       Margin="0,6,0,6" />
+                        </controls:CustomButton>
+
+                        <controls:CustomButton Grid.Row="2"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right"
+                                               Style="{StaticResource EmptyButtonStyle}"
+                                               Margin="-10,-10,0,-10"
+                                               Padding="0"
+                                               TapCommand="{Binding BlogCommand}">
+                            <TextBlock Text="{Binding Blog}"
+                                       Style="{StaticResource BaseTextBlockStyle}"
+                                       Margin="0,6,0,6" />
+                        </controls:CustomButton>
+                    </Grid>
+                </Border>
+
+                <Border Background="{ThemeResource AltBackgroundBrush}"
+                        Margin="0,0,0,12"
+                        Padding="19,6">
+                    <StackPanel Orientation="Vertical">
+                        <controls:CustomButton Style="{StaticResource EmptyButtonStyle}"
+                                               Margin="0,-10,0,-10"
+                                               TapCommand="{Binding TellAFriendCommand}">
+                            <TextBlock Text="Tell a friend"
+                                       Style="{StaticResource BaseTextBlockStyle}"
+                                       x:Uid="TellAFriend" />
+                        </controls:CustomButton>
+                        <controls:CustomButton Style="{StaticResource EmptyButtonStyle}"
+                                               Margin="0,-10,0,-10"
+                                               TapCommand="{Binding ReviewCommand}">
+                            <TextBlock Text="Review in the Store"
+                                       Style="{StaticResource BaseTextBlockStyle}"
+                                       x:Uid="ReviewInStore" />
+                        </controls:CustomButton>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="{ThemeResource AltBackgroundBrush}"
+                        Margin="0,0,0,12"
+                        Padding="19,6">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="FOLLOW THE TEAM"
+                                   x:Uid="HeaderFollowTheTeam"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   FontSize="{StaticResource TextStyleMediumFontSize}" />
+
+                        <ListView ItemsSource="{Binding TheTeam}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment"
+                                            Value="Stretch" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Ellipse Height="40"
+                                                 Width="40"
+                                                 HorizontalAlignment="Left"
+                                                 VerticalAlignment="Center">
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="{Binding AvatarUri}"
+                                                            Stretch="Uniform" />
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+
+                                        <Viewbox Width="Auto"
+                                                 Stretch="Uniform"
+                                                 StretchDirection="DownOnly"
+                                                 Grid.Column="1"
+                                                 HorizontalAlignment="Left">
+                                            <TextBlock Text="{Binding Name}"
+                                                       Style="{StaticResource BaseTextBlockStyle}"
+                                                       Margin="12,0" />
+                                        </Viewbox>
+
+                                        <controls:CustomButton Style="{StaticResource EmptyButtonStyle}"
+                                                               Grid.Column="2"
+                                                               HorizontalContentAlignment="Right"
+                                                               Margin="0,-10,0,-10"
+                                                               TapCommand="{Binding About.OpenTwitterCommand, Source={StaticResource Locator}}"
+                                                               CommandParameter="{Binding TwitterUrl}">
+                                            <Viewbox Width="Auto"
+                                                     Stretch="Uniform"
+                                                     StretchDirection="DownOnly">
+                                                <TextBlock Text="{Binding Twitter}" />
+                                            </Viewbox>
+                                        </controls:CustomButton>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="{ThemeResource AltBackgroundBrush}"
+                        Margin="0,0,0,12"
+                        Padding="19,6">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="SPECIAL THANKS"
+                                   x:Uid="HeaderSpecialThanks"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   FontSize="{StaticResource TextStyleMediumFontSize}" />
+
+                        <controls:CustomButton Style="{StaticResource EmptyButtonStyle}"
+                                               Grid.Row="1"
+                                               Grid.Column="0"
+                                               Margin="0,-10,0,-10"
+                                               Content="{Binding Designer}"
+                                               TapCommand="{Binding DesignerCommand}" />
+
+                        <TextBlock Text="Design"
+                                   x:Uid="DesignLabel"
+                                   Grid.Row="1"
+                                   Grid.Column="1"
+                                   Margin="0,6"
+                                   HorizontalAlignment="Right"
+                                   Style="{StaticResource BaseTextBlockStyle}" />
+                    </Grid>
+                </Border>
+
+                <Border Background="{ThemeResource AltBackgroundBrush}"
+                        Margin="0,0,0,12"
+                        Padding="19,6">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Version"
+                                   x:Uid="VersionLabel"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   Margin="0,6" />
+                        <TextBlock Text="Build"
+                                   Grid.Row="1"
+                                   Grid.Column="0"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   Margin="0,6"
+                                   x:Uid="BuildLabel" />
+
+                        <TextBlock Text="{Binding Version}"
+                                   Grid.Row="0"
+                                   Grid.Column="1"
+                                   HorizontalAlignment="Right"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   Margin="0,6" />
+                        <TextBlock Text="{Binding Build}"
+                                   Grid.Row="1"
+                                   Grid.Column="1"
+                                   HorizontalAlignment="Right"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   Margin="0,6" />
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</views:SpeaderBasePage>

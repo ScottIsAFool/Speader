@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Speader", "Speader\Speader.csproj", "{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows Phone 8.1", "Windows Phone 8.1", "{CA386090-0851-4932-8C68-C0AA167115D4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Debug|ARM.ActiveCfg = Debug|ARM
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Debug|ARM.Build.0 = Debug|ARM
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Debug|ARM.Deploy.0 = Debug|ARM
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Debug|x86.ActiveCfg = Debug|x86
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Debug|x86.Build.0 = Debug|x86
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Debug|x86.Deploy.0 = Debug|x86
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Release|ARM.ActiveCfg = Release|ARM
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Release|ARM.Build.0 = Release|ARM
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Release|ARM.Deploy.0 = Release|ARM
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Release|x86.ActiveCfg = Release|x86
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Release|x86.Build.0 = Release|x86
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC}.Release|x86.Deploy.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9F727D1F-F337-415B-BFAA-9DAAFC4B8CAC} = {CA386090-0851-4932-8C68-C0AA167115D4}
+	EndGlobalSection
+EndGlobal

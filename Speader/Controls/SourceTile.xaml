@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="Speader.Controls.SourceTile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:Speader.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Height="360"
+             Width="360">
+
+    <Grid>
+        
+        <Image Source="/Assets/SourceTileBackground.png"
+               x:Name="NormalBackground"
+               Visibility="Collapsed"/>
+
+        <Image Source="/Assets/TransparentSourceTileBackground.png" 
+               x:Name="TransparentBackrgound"
+               Visibility="Collapsed"/>
+        
+        <Path Data="{Binding Source={StaticResource PocketIcon}}"
+              Fill="White"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              Stretch="Uniform"
+              Height="150"
+              Margin="0,0,0,20"
+              x:Name="PocketIcon"
+              Visibility="Collapsed"/>
+
+        <Path Data="{Binding Source={StaticResource ReadabilityIcon}}"
+              Fill="White"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              Stretch="Uniform"
+              Height="150"
+              Margin="0,0,0,20"
+              x:Name="ReadabilityIcon"
+              Visibility="Collapsed"/>
+
+        <Path Data="{Binding Source={StaticResource InstapaperIcon}}"
+              Fill="White"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              Stretch="Uniform"
+              Height="150"
+              Margin="0,0,0,20"
+              x:Name="InstapaperIcon"
+              Visibility="Collapsed" />
+
+        <Path Data="{Binding Source={StaticResource WindowsPhoneIcon}}"
+              Fill="White"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              Stretch="Uniform"
+              Height="150"
+              Margin="0,0,0,20"
+              x:Name="LocalIcon"
+              Visibility="Collapsed" />
+    </Grid>
+</UserControl>

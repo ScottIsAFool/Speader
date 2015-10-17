@@ -1,0 +1,107 @@
+﻿<views:SpeaderBasePage x:Class="Speader.Views.WebView"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:local="using:Speader.Views"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:controls="using:Speader.Controls"
+                        xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+                        xmlns:behaviours="using:Speader.Behaviours"
+						xmlns:behaviors="using:Cimbalino.Toolkit.Behaviors"
+                        xmlns:converters="using:Speader.Converters"
+                        xmlns:views="using:Speader.Views"
+                        mc:Ignorable="d"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                        DataContext="{Binding Web, Source={StaticResource Locator}}">
+    <interactivity:Interaction.Behaviors>
+        <behaviours:StatusBarBehavior ProgressIsVisible="{Binding IsLoading}"
+                                      IsIndeterminate="{Binding IsLoading}" />
+    </interactivity:Interaction.Behaviors>
+
+    <views:SpeaderBasePage.Resources>
+        <converters:StopRefreshConverter x:Key="StopRefreshConverter"/>
+        <converters:BooleanToLocalisedStringConverter x:Key="StopRefreshTextConverter"
+                                                      TrueValue="AppBarStop"
+                                                      FalseValue="AppBarRefresh"/>
+    </views:SpeaderBasePage.Resources>
+
+    <views:SpeaderBasePage.BottomAppBar>
+        <controls:SpeaderCommandBar IsEnabled="{Binding ProgressIsVisible, Converter={StaticResource NegativeBooleanConverter}}">
+            <controls:SpeaderCommandBar.PrimaryCommands>
+                <AppBarButton x:Uid="AppBarBack"
+                              IsEnabled="{Binding CanGoBack, ElementName=Browser}"
+                              x:Name="AppBarBack"
+                              Click="AppBarBack_OnClick">
+                    <AppBarButton.Icon>
+                        <SymbolIcon Symbol="Back" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Label="{Binding IsLoading, Converter={StaticResource StopRefreshTextConverter}, FallbackValue=refresh}"
+                              Icon="{Binding IsLoading, Converter={StaticResource StopRefreshConverter}, FallbackValue=Refresh}"
+                              Tag="{Binding IsLoading}"
+                              x:Name="StopRefreshAppBarButton"
+                              Click="StopRefreshAppBarButton_OnClick" />
+                <AppBarButton x:Uid="AppBarForward"
+                              IsEnabled="{Binding CanGoForward, ElementName=Browser}"
+                              x:Name="AppBarForward"
+                              Click="AppBarForward_OnClick">
+                    <AppBarButton.Icon>
+                        <SymbolIcon Symbol="Forward" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Label="save"
+                              x:Uid="AppBarSave"
+                              Command="{Binding SaveCommand}">
+                    <AppBarButton.Icon>
+                        <SymbolIcon Symbol="Save" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </controls:SpeaderCommandBar.PrimaryCommands>
+            <controls:SpeaderCommandBar.SecondaryCommands>
+                <AppBarButton x:Uid="AppBarShare"
+                              Label="share"
+                              Command="{Binding ShareCommand}"/>
+            </controls:SpeaderCommandBar.SecondaryCommands>
+        </controls:SpeaderCommandBar>
+    </views:SpeaderBasePage.BottomAppBar>
+
+    <Grid Margin="0,32,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0"
+                Background="{ThemeResource AltBackgroundBrush}">
+            <TextBox BorderThickness="0"
+                     VerticalAlignment="Top"
+                     Padding="10"
+                     InputScope="Url" 
+                     VerticalContentAlignment="Center"
+                     Text="{Binding Address, Mode=TwoWay}"
+                     x:Name="AddressBox"
+                     IsEnabled="{Binding ProgressIsVisible, Converter={StaticResource NegativeBooleanConverter}}"
+                     KeyUp="AddressBox_OnKeyUp">
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:UpdateTextBindingOnPropertyChanged/>
+                    <behaviors:EnterKeyBehavior Command="{Binding NavigateCommand}"/>
+                </interactivity:Interaction.Behaviors>
+            </TextBox>
+        </Border>
+
+        <WebView Grid.Row="1"
+                 x:Name="Browser">
+            <interactivity:Interaction.Behaviors>
+                <behaviours:WebViewBehaviour IsLoading="{Binding IsLoading, Mode=TwoWay}"
+                                             ActualUri="{Binding Web.Url, Source={StaticResource Locator}, Mode=TwoWay}"/>
+            </interactivity:Interaction.Behaviors>
+        </WebView>
+
+        <controls:SavingOverlay Visibility="{Binding ProgressIsVisible, Converter={StaticResource VisibilityConverter}}"
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                x:Uid="Saving"
+                                ProgressIsActive="{Binding ProgressIsVisible}" />
+
+    </Grid>
+</views:SpeaderBasePage>

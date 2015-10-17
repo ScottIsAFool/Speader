@@ -1,0 +1,61 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="LightForegroundColor">Black</Color>
+    <Color x:Key="LightBackgroundColor">White</Color>
+    <Color x:Key="LightAccentColor">#DC0000</Color>
+    <Color x:Key="LightAltBackgroundColor">#EFEFF4</Color>
+    <Color x:Key="LightSubtleColor">#7F000000</Color>
+    <Color x:Key="LightDisabledAccentColor">#DC0000</Color>
+    <Color x:Key="LightAppBarOpenColor">#A04542</Color>
+    <Color x:Key="LightSemiTransparentBackgroundColor">#B2FFFFFF</Color>
+
+    <SolidColorBrush x:Key="PhoneSemiTransparentBackgroundBrush"
+                     Color="{StaticResource LightSemiTransparentBackgroundColor}" />
+    <SolidColorBrush x:Key="PhoneBackgroundBrush"
+                     Color="{StaticResource LightBackgroundColor}" />
+    <SolidColorBrush x:Key="TextBoxBackgroundThemeBrush"
+                     Color="{StaticResource LightAltBackgroundColor}" />
+    <SolidColorBrush x:Key="ProgressBarForegroundThemeBrush"
+                     Color="{StaticResource LightAccentColor}" />
+    <SolidColorBrush x:Key="ProgressBarBackgroundThemeBrush"
+                     Color="{StaticResource LightBackgroundColor}" />
+    <SolidColorBrush x:Key="DisabledPhoneAccentBrush"
+                     Color="#7FDC0000"/>
+
+    <SolidColorBrush x:Key="PhoneMidBrush"
+                     Color="{StaticResource LightSubtleColor}" />
+    <SolidColorBrush x:Key="LightForegroundBrush"
+                     Color="{StaticResource LightForegroundColor}"/>
+    <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush"
+                     Color="{StaticResource LightBackgroundColor}"/>
+    <SolidColorBrush x:Key="PhoneAccentBrush"
+                     Color="{StaticResource LightAccentColor}"/>
+    <SolidColorBrush x:Key="AltBackgroundBrush"
+                     Color="{StaticResource LightAltBackgroundColor}"/>
+    <SolidColorBrush x:Key="AppBarOpenBrush"
+                     Color="{StaticResource LightAppBarOpenColor}" />
+
+    <SolidColorBrush x:Key="AppBarBackgroundThemeBrush"
+                     Color="{StaticResource LightBackgroundColor}"/>
+    <SolidColorBrush x:Key="AppBarItemForegroundThemeBrush"
+                     Color="{StaticResource LightForegroundColor}"/>
+    <SolidColorBrush x:Key="PhoneForegroundBrush"
+                     Color="{StaticResource LightForegroundColor}" />
+    <SolidColorBrush x:Key="ComboBoxForegroundThemeBrush"
+                     Color="{StaticResource LightForegroundColor}" />
+    <SolidColorBrush x:Key="ComboBoxBorderThemeBrush"
+                     Color="{StaticResource LightForegroundColor}" />
+    <SolidColorBrush x:Key="ComboBoxBackgroundThemeBrush"
+                     Color="{StaticResource LightAltBackgroundColor}" />
+    <SolidColorBrush x:Key="ComboBoxPressedBackgroundThemeBrush"
+                     Color="{StaticResource LightForegroundColor}" />
+    <SolidColorBrush x:Key="ComboBoxPressedBorderThemeBrush"
+                     Color="{StaticResource LightForegroundColor}" />
+    <SolidColorBrush x:Key="ComboBoxPressedForegroundThemeBrush"
+                     Color="{StaticResource LightBackgroundColor}" />
+    <SolidColorBrush x:Key="ComboBoxHighlightedBorderThemeBrush"
+                     Color="{StaticResource LightAccentColor}" />
+    <SolidColorBrush x:Key="ComboBoxHighlightedBackgroundThemeBrush"
+                     Color="{StaticResource LightAltBackgroundColor}" />
+</ResourceDictionary>

@@ -1,0 +1,69 @@
+﻿<views:SpeaderBasePage x:Class="Speader.Views.FullPageView"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:local="using:Speader.Views"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:system="using:System"
+                        xmlns:controls="using:Speader.Controls"
+                        xmlns:views="using:Speader.Views"
+                        mc:Ignorable="d"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                        DataContext="{Binding FullPage, Source={StaticResource Locator}}">
+
+    <views:SpeaderBasePage.BottomAppBar>
+        <controls:SpeaderCommandBar Visibility="{Binding CanEdit, Converter={StaticResource VisibilityConverter}}">
+            <AppBarButton x:Uid="AppBarEdit"
+                          Label="edit"
+                          Command="{Binding EditCommand}">
+                <AppBarButton.Icon>
+                    <SymbolIcon Symbol="Edit" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton x:Uid="AppBarRead"
+                          Label="read"
+                          Command="{Binding ReadCommand}">
+                <AppBarButton.Icon>
+                    <SymbolIcon Symbol="View" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+        </controls:SpeaderCommandBar>
+    </views:SpeaderBasePage.BottomAppBar>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition />
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Title Panel -->
+        <StackPanel Grid.Row="0"
+                    Margin="19,12,0,0">
+            <TextBlock Text="SPEADER"
+                       Style="{ThemeResource TitleTextBlockStyle}"
+                       Margin="0,12,0,0" />
+            <TextBlock Text="{Binding ReaderItem.Title}"
+                       Margin="0,-6.5,0,26.5"
+                       Style="{ThemeResource HeaderTextBlockStyle}"
+                       CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" />
+        </StackPanel>
+
+        <!--TODO: Content should be placed within the following grid-->
+        <Grid Grid.Row="1"
+              x:Name="ContentRoot"
+              Margin="19,9.5,19,0">
+            <ScrollViewer>
+                <TextBlock Text="{Binding ReaderItem.Text}"
+                           TextWrapping="WrapWholeWords" 
+                           Style="{StaticResource BaseTextBlockStyle}"
+                           Foreground="{ThemeResource PhoneForegroundBrush}"/>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</views:SpeaderBasePage>

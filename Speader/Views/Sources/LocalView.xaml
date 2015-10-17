@@ -1,0 +1,68 @@
+﻿<views:SpeaderBasePage x:Class="Speader.Views.Sources.LocalView"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:local="using:Speader.Views.Sources"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:views="using:Speader.Views"
+                        xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+                        xmlns:behaviours="using:Speader.Behaviours"
+                        xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+                        xmlns:controls="using:Speader.Controls"
+                        xmlns:data="using:Telerik.UI.Xaml.Controls.Data"
+                        xmlns:views1="using:Speader.Views"
+                        mc:Ignorable="d"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                        DataContext="{Binding Local, Source={StaticResource Locator}}">
+    <interactivity:Interaction.Behaviors>
+        <behaviours:StatusBarBehavior Text="{Binding ProgressText}"
+                                      ProgressIsVisible="{Binding ProgressIsVisible}"
+                                      IsIndeterminate="{Binding ProgressIsVisible}" />
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{Binding ViewLoadedCommand}" />
+        </core:EventTriggerBehavior>
+    </interactivity:Interaction.Behaviors>
+
+    <views:SpeaderBasePage.BottomAppBar>
+        <controls:SpeaderCommandBar>
+            <AppBarButton x:Uid="AppBarAdd"
+                          Label="add"
+                          Command="{Binding AddNewItemCommand}">
+                <AppBarButton.Icon>
+                    <SymbolIcon Symbol="Add" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton Label="{Binding IsPinned, Converter={StaticResource PinUnpinTextConverter}, FallbackValue=unpin}"
+                          Icon="{Binding IsPinned, Converter={StaticResource PinUnpinConverter}}"
+                          Click="ButtonBase_OnClick" />
+            <AppBarButton Label="home"
+                          x:Uid="AppBarHome"
+                          x:Name="AppBarHome"
+                          Visibility="Collapsed"
+                          Click="AppBarHome_OnClick">
+                <AppBarButton.Icon>
+                    <SymbolIcon Symbol="Home" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+        </controls:SpeaderCommandBar>
+    </views:SpeaderBasePage.BottomAppBar>
+
+    <Grid Margin="19,32,19,0">
+        <Grid Margin="-2000,-2000,0,0">
+            <controls:SourceTile x:Name="NormalTileImage" />
+            <controls:SourceTile x:Name="TransparentTileImage" />
+        </Grid>
+        <data:RadDataBoundListBox ItemsSource="{Binding Items}"
+                                        IsAsyncBalanceEnabled="True"
+                                        EmptyContentTemplate="{StaticResource EmptyContentTemplate}">
+            <data:RadDataBoundListBox.ItemTemplate>
+                <DataTemplate>
+                    <controls:ReaderItemControl ReaderCommand="{Binding Local.ReaderPageCommand, Source={StaticResource Locator}}"
+                                                FullPageCommand="{Binding Local.FullPageCommand, Source={StaticResource Locator}}"
+                                                ArchiveCommand="{Binding Local.ArchiveCommand, Source={StaticResource Locator}}"
+                                                IsDelete="True" />
+                </DataTemplate>
+            </data:RadDataBoundListBox.ItemTemplate>
+        </data:RadDataBoundListBox>
+    </Grid>
+</views:SpeaderBasePage>

@@ -1,0 +1,94 @@
+﻿<views:SpeaderBasePage x:Class="Speader.Views.HelpView"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:local="using:Speader.Views"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:controls="using:Speader.Controls"
+                        xmlns:views="using:Speader.Views"
+                        mc:Ignorable="d"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                        DataContext="{Binding About, Source={StaticResource Locator}}">
+
+    <Grid Margin="0,32,0,0">
+        <StackPanel Orientation="Vertical">
+            <Border Background="{ThemeResource AltBackgroundBrush}"
+                    Margin="0,0,0,24"
+                    Padding="19,6">
+                <controls:CustomButton Style="{StaticResource EmptyButtonStyle}"
+                                       TapCommand="{Binding EmailBryarlyCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Height="80"
+                                 Width="80">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Assets/Lickability/bryarly.png" />
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <StackPanel Orientation="Vertical"
+                                    Margin="24,0"
+                                    VerticalAlignment="Center">
+                            <TextBlock Text="{Binding SupportPerson}"
+                                       Style="{StaticResource BaseTextBlockStyle}"
+                                       FontWeight="SemiBold" />
+                            <TextBlock Text="Support Specialist"
+                                       x:Uid="SupportSpecialist"
+                                       Style="{StaticResource BaseTextBlockStyle}" />
+                        </StackPanel>
+                    </StackPanel>
+                </controls:CustomButton>
+            </Border>
+
+            <Border Background="{ThemeResource AltBackgroundBrush}"
+                    Margin="0,0,0,12"
+                    Padding="19,6">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Email"
+                               Style="{StaticResource BaseTextBlockStyle}"
+                               x:Uid="EmailLabel"
+                               Margin="0,6" />
+
+                    <TextBlock Text="Phone"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               Style="{StaticResource BaseTextBlockStyle}"
+                               x:Uid="PhoneLabel"
+                               Margin="0,6" />
+
+                    <controls:CustomButton Style="{StaticResource EmptyButtonStyle}"
+                                           Grid.Row="0"
+                                           Grid.Column="1"
+                                           Margin="-10,-10,0,-10"
+                                           TapCommand="{Binding EmailSupport}"
+                                           HorizontalContentAlignment="Right">
+                        <TextBlock Text="{Binding SupportEmail}" />
+                    </controls:CustomButton>
+
+                    <controls:CustomButton Style="{StaticResource EmptyButtonStyle}"
+                                           Grid.Row="1"
+                                           Grid.Column="1"
+                                           TapCommand="{Binding CallSupport}"
+                                           Margin="-10,-10,0,-10"
+                                           HorizontalContentAlignment="Right">
+                        <TextBlock Text="{Binding SupportPhoneNumber}" />
+                    </controls:CustomButton>
+                </Grid>
+            </Border>
+
+            <TextBlock Text="Contact us"
+                       x:Uid="SupportContactUs"
+                       Style="{StaticResource BaseTextBlockStyle}"
+                       Margin="19,0"
+                       TextWrapping="WrapWholeWords"></TextBlock>
+        </StackPanel>
+    </Grid>
+</views:SpeaderBasePage>

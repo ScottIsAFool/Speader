@@ -1,0 +1,213 @@
+﻿<views:SpeaderBasePage x:Class="Speader.Views.ReaderView"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:local="using:Speader.Views"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+                        xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+                        xmlns:controls="using:Speader.Controls"
+                        xmlns:converters="using:Speader.Converters"
+                        xmlns:views="using:Speader.Views"
+                        mc:Ignorable="d"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                        DataContext="{Binding Reader, Source={StaticResource Locator}}">
+    <interactivity:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{Binding ReaderViewLoaded}" />
+        </core:EventTriggerBehavior>
+    </interactivity:Interaction.Behaviors>
+
+    <views:SpeaderBasePage.Resources>
+        <converters:PlayRestartConverter x:Key="PlayRestartConverter" />
+        <converters:BooleanToLocalisedStringConverter x:Key="PlayRestartStringConverter"
+                                                      TrueValue="AppBarRestart"
+                                                      FalseValue="AppBarPlay" />
+    </views:SpeaderBasePage.Resources>
+
+    <views:SpeaderBasePage.BottomAppBar>
+        <controls:SpeaderCommandBar Visibility="{Binding IsPaused, Converter={StaticResource VisibilityConverter}}"
+                                     Background="{ThemeResource AltBackgroundBrush}"
+                                     Foreground="{ThemeResource AppBarOpenBrush}">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Uid="AppBarPrevious"
+                              Command="{Binding PreviousCommand}"
+                              IsEnabled="{Binding CanSkipBack}">
+                    <AppBarButton.Icon>
+                        <SymbolIcon Symbol="Previous" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Label="{Binding ShowFinishedScreen, Converter={StaticResource PlayRestartStringConverter}}"
+                              Command="{Binding PlayRestartCommand}"
+                              Icon="{Binding ShowFinishedScreen, Converter={StaticResource PlayRestartConverter}}" />
+                <AppBarButton x:Uid="AppBarNext"
+                              Command="{Binding NextCommand}"
+                              IsEnabled="{Binding CanSkip}">
+                    <AppBarButton.Icon>
+                        <SymbolIcon Symbol="Next" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton x:Uid="AppBarHome"
+                              Command="{Binding HomeCommand}"
+                              Visibility="{Binding HomeButtonIsVisible, Converter={StaticResource VisibilityConverter}}">
+                    <AppBarButton.Icon>
+                        <SymbolIcon Symbol="Home" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
+        </controls:SpeaderCommandBar>
+    </views:SpeaderBasePage.BottomAppBar>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ProgressBar Value="{Binding ReadPercentage}"
+                     VerticalAlignment="Top"
+                     Grid.Column="0"
+                     Minimum="0"
+                     Maximum="1"
+                     HorizontalAlignment="Stretch"
+                     Opacity="{Binding IsPaused, Converter={StaticResource OpacityVisibilityConverter}}" />
+        <Grid VerticalAlignment="Top"
+              x:Name="MenuGrid"
+              Margin="12,0,12,0"
+              Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1.5*" />
+            </Grid.ColumnDefinitions>
+            <FlyoutBase.AttachedFlyout>
+                <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource ThemeFlyoutMenuStyle}">
+                    <controls:ThemeFlyoutMenuItem Text="Light"
+                                                   Background="White"
+                                                   Foreground="Black"
+                                                   Style="{StaticResource ThemeMenuFlyoutItemStyle}"
+                                                   RequiredTheme="Light"
+                                                   ActualTheme="{Binding Settings.Theme, Source={StaticResource Locator}}"
+                                                   Command="{Binding ChangeThemeCommand}"
+                                                   CommandParameter="Light" />
+                    <controls:ThemeFlyoutMenuItem Text="Dark"
+                                                   Background="Black"
+                                                   Foreground="White"
+                                                   Style="{StaticResource ThemeMenuFlyoutItemStyle}"
+                                                   RequiredTheme="Dark"
+                                                   ActualTheme="{Binding Settings.Theme, Source={StaticResource Locator}}"
+                                                   Command="{Binding ChangeThemeCommand}"
+                                                   CommandParameter="Dark" />
+                    <controls:ThemeFlyoutMenuItem Text="Sepia"
+                                                   Background="#EAE4D2"
+                                                   Foreground="#857A6E"
+                                                   Style="{StaticResource ThemeMenuFlyoutItemStyle}"
+                                                   RequiredTheme="Sepia"
+                                                   ActualTheme="{Binding Settings.Theme, Source={StaticResource Locator}}"
+                                                   Command="{Binding ChangeThemeCommand}"
+                                                   CommandParameter="Sepia" />
+                </MenuFlyout>
+            </FlyoutBase.AttachedFlyout>
+
+            <TextBlock Text="{Binding TimeRemainingText}"
+                       Grid.Column="1"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Bottom"
+                       Style="{StaticResource BaseTextBlockStyle}"
+                       Opacity="{Binding IsPaused, Converter={StaticResource OpacityVisibilityConverter}}"
+                       Foreground="{ThemeResource PhoneForegroundBrush}"
+                       Margin="0,20,0,10" />
+
+            <controls:CustomHyperlinkButton x:Uid="ThemeButton"
+                                            Content="Theme"
+                                            Foreground="{ThemeResource PhoneAccentBrush}"
+                                            HorizontalAlignment="Right"
+                                            Tapped="UIElement_OnTapped"
+                                            Grid.Column="2"
+                                            Margin="0,20,0,0"
+                                            IsHitTestVisible="{Binding IsPaused}"
+                                            Opacity="{Binding IsPaused, Converter={StaticResource OpacityVisibilityConverter}}" />
+
+
+        </Grid>
+
+        <Grid Grid.Row="1"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Background="Transparent">
+            <interactivity:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="Tapped">
+                    <core:InvokeCommandAction Command="{Binding PlayCommand}" />
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+            <Viewbox Stretch="Uniform"
+                     MaxWidth="480"
+                     StretchDirection="DownOnly">
+                <TextBlock Text="{Binding DisplayWords, FallbackValue='All Of The Words'}"
+                           Style="{StaticResource GroupHeaderTextBlockStyle}"
+                           Foreground="{ThemeResource PhoneForegroundBrush}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontFamily="{Binding ReaderFont, Converter={StaticResource ReaderFontConverter}}"/>
+            </Viewbox>
+        </Grid>
+
+        <Grid Grid.Row="2"
+              IsHitTestVisible="{Binding IsPaused}">
+            <Grid Opacity="{Binding ShowWordsAMinute, Converter={StaticResource OpacityVisibilityConverter}}"
+                  VerticalAlignment="Bottom"
+                  Margin="12,0,12,70">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Path Data="{Binding Source={StaticResource TurtleIcon}}"
+                      Fill="Gray"
+                      Height="15"
+                      Width="30"
+                      Stretch="UniformToFill"
+                      Margin="0,4,6,0" />
+
+                <Slider Value="{Binding WordsPerMinute, Mode=TwoWay}"
+                        Minimum="{Binding SettingsVm.MinRate, Source={StaticResource Locator}}"
+                        Maximum="{Binding SettingsVm.MaxRate, Source={StaticResource Locator}}"
+                        Header="{Binding WordsPerMinuteText}"
+                        StepFrequency="20"
+                        Grid.Column="1" />
+                <Path Data="{Binding Source={StaticResource HareIcon}}"
+                      Fill="Gray"
+                      Height="20"
+                      Width="20"
+                      Stretch="UniformToFill"
+                      Margin="6,0,0,0"
+                      Grid.Column="2" />
+            </Grid>
+            <StackPanel Orientation="Vertical"
+                        IsHitTestVisible="{Binding ShowFinishedScreen}"
+                        Opacity="{Binding ShowFinishedScreen, Converter={StaticResource OpacityVisibilityConverter}}">
+                <TextBlock Text="{Binding FinishedText}"
+                           Style="{StaticResource BaseTextBlockStyle}"
+                           Foreground="{ThemeResource PhoneMidBrush}"
+                           HorizontalAlignment="Center" />
+                <Button Style="{StaticResource EmptyButtonStyle}"
+                        HorizontalAlignment="Center"
+                        Padding="0"
+                        Command="{Binding ShareCommand}">
+                    <Path Data="{Binding Source={StaticResource ShareIcon}}"
+                          Fill="{ThemeResource PhoneAccentBrush}"
+                          Height="30"
+                          Width="30"
+                          Stretch="Uniform" />
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <controls:SavingOverlay Visibility="{Binding IsSavingVisible, Converter={StaticResource VisibilityConverter}}"
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                x:Uid="Saving"
+                                ProgressIsActive="{Binding IsSavingVisible}" />
+    </Grid>
+</views:SpeaderBasePage>

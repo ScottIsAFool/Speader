@@ -1,0 +1,115 @@
+﻿<views:SpeaderBasePage x:Class="Speader.Views.Sources.InstapaperView"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:behaviours="using:Speader.Behaviours"
+                        xmlns:controls="using:Speader.Controls"
+                        xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:data="using:Telerik.UI.Xaml.Controls.Data"
+                        xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:views="using:Speader.Views"
+                        xmlns:views1="using:Speader.Views"
+                        xmlns:behaviors="using:Cimbalino.Toolkit.Behaviors"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                        DataContext="{Binding Instapaper,
+                                              Source={StaticResource Locator}}"
+                        mc:Ignorable="d">
+    <interactivity:Interaction.Behaviors>
+        <behaviours:StatusBarBehavior IsIndeterminate="{Binding ProgressIsVisible}"
+                                      ProgressIsVisible="{Binding ProgressIsVisible}"
+                                      Text="{Binding ProgressText}" />
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{Binding ViewLoadedCommand}" />
+        </core:EventTriggerBehavior>
+    </interactivity:Interaction.Behaviors>
+
+    <views:SpeaderBasePage.BottomAppBar>
+        <controls:SpeaderCommandBar>
+            <controls:SpeaderCommandBar.PrimaryCommands>
+                <AppBarButton Click="ButtonBase_OnClick"
+                              Icon="{Binding IsPinned,
+                                             Converter={StaticResource PinUnpinConverter}}"
+                              Label="{Binding IsPinned,
+                                              Converter={StaticResource PinUnpinTextConverter},
+                                              FallbackValue=unpin}" />
+                <AppBarButton x:Uid="AppBarHome"
+                              x:Name="AppBarHome"
+                              Click="AppBarHome_OnClick"
+                              Label="home"
+                              Visibility="Collapsed">
+                    <AppBarButton.Icon>
+                        <SymbolIcon Symbol="Home" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </controls:SpeaderCommandBar.PrimaryCommands>
+        </controls:SpeaderCommandBar>
+    </views:SpeaderBasePage.BottomAppBar>
+
+    <Grid Margin="0,32,0,0">
+        <Grid Margin="-2000,-2000,0,0">
+            <controls:SourceTile x:Name="NormalTileImage" />
+            <controls:SourceTile x:Name="TransparentTileImage" />
+        </Grid>
+        <Border VerticalAlignment="Top"
+                Background="{ThemeResource AltBackgroundBrush}"
+                Padding="19,0"
+                Visibility="{Binding Auth.IsLoggedIntoInstapaper,
+                                     Source={StaticResource Locator},
+                                     Converter={StaticResource InvertedVisibilityConverter},
+                                     FallbackValue=Collapsed}">
+            <StackPanel Orientation="Vertical">
+                <TextBox x:Uid="EmailEntry"
+                         InputScope="EmailSmtpAddress"
+                         Text="{Binding EmailAddress,
+                                        Mode=TwoWay}">
+                    <interactivity:Interaction.Behaviors>
+                        <behaviors:UpdateTextBindingOnPropertyChanged />
+                    </interactivity:Interaction.Behaviors>
+                </TextBox>
+                <PasswordBox x:Uid="PasswordEntry"
+                             IsPasswordRevealButtonEnabled="True"
+                             Password="{Binding Password,
+                                                Mode=TwoWay}"
+                             SelectionHighlightColor="{ThemeResource PhoneAccentBrush}" />
+                <Button x:Uid="Login" Command="{Binding ConnectCommand}" />
+            </StackPanel>
+        </Border>
+
+        <Grid Margin="19,0,0,0" Visibility="{Binding Auth.IsLoggedIntoInstapaper, Source={StaticResource Locator}, Converter={StaticResource VisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       Style="{StaticResource BaseTextBlockStyle}"
+                       Text="{Binding Auth.LoggedInInstapaperUser.UserName,
+                                      Source={StaticResource Locator}}" />
+
+            <data:RadDataBoundListBox x:Name="BoundListBox"
+                                      Grid.Row="1"
+                                      EmptyContentTemplate="{StaticResource EmptyContentTemplate}"
+                                      IsAsyncBalanceEnabled="True"
+                                      IsPullToRefreshEnabled="True"
+                                      ItemsSource="{Binding Items}"
+                                      ShowPullToRefreshWhenNoData="True">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="RefreshRequested">
+                        <core:InvokeCommandAction Command="{Binding RefreshCommand}" />
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+                <data:RadDataBoundListBox.ItemTemplate>
+                    <DataTemplate>
+                        <controls:ReaderItemControl ArchiveCommand="{Binding Instapaper.ArchiveCommand,
+                                                                             Source={StaticResource Locator}}"
+                                                    FullPageCommand="{Binding Instapaper.FullPageCommand,
+                                                                              Source={StaticResource Locator}}"
+                                                    IsArchive="True"
+                                                    ReaderCommand="{Binding Instapaper.ReaderPageCommand,
+                                                                            Source={StaticResource Locator}}" />
+                    </DataTemplate>
+                </data:RadDataBoundListBox.ItemTemplate>
+            </data:RadDataBoundListBox>
+        </Grid>
+    </Grid>
+</views:SpeaderBasePage>

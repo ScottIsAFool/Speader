@@ -1,0 +1,219 @@
+﻿<views:SpeaderBasePage x:Class="Speader.Views.SettingsView"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:local="using:Speader.Views"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:localControls="using:Speader.Controls"
+                        xmlns:views="using:Speader.Views"
+                        mc:Ignorable="d"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                        DataContext="{Binding SettingsVm, Source={StaticResource Locator}}">
+
+    <Grid Margin="0,32,0,0">
+        <ScrollViewer>
+            <StackPanel Orientation="Vertical">
+                <Border Background="{ThemeResource AltBackgroundBrush}"
+                        Padding="19,12"
+                        Margin="0,6">
+                    <StackPanel Orientation="Vertical"
+                                x:Name="ThemePanel">
+                        <FlyoutBase.AttachedFlyout>
+                            <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource ThemeFlyoutMenuStyle}">
+                                <localControls:ThemeFlyoutMenuItem Text="Light"
+                                                                   Background="White"
+                                                                   Foreground="Black"
+                                                                   Style="{StaticResource ThemeMenuFlyoutItemStyle}"
+                                                                   RequiredTheme="Light"
+                                                                   ActualTheme="{Binding Settings.Theme, Source={StaticResource Locator}}"
+                                                                   Command="{Binding ChangeThemeCommand}"
+                                                                   CommandParameter="Light" />
+                                <localControls:ThemeFlyoutMenuItem Text="Dark"
+                                                                   Background="Black"
+                                                                   Foreground="White"
+                                                                   Style="{StaticResource ThemeMenuFlyoutItemStyle}"
+                                                                   RequiredTheme="Dark"
+                                                                   ActualTheme="{Binding Settings.Theme, Source={StaticResource Locator}}"
+                                                                   Command="{Binding ChangeThemeCommand}"
+                                                                   CommandParameter="Dark" />
+                                <localControls:ThemeFlyoutMenuItem Text="Sepia"
+                                                                   Background="#EAE4D2"
+                                                                   Foreground="#857A6E"
+                                                                   Style="{StaticResource ThemeMenuFlyoutItemStyle}"
+                                                                   RequiredTheme="Sepia"
+                                                                   ActualTheme="{Binding Settings.Theme, Source={StaticResource Locator}}"
+                                                                   Command="{Binding ChangeThemeCommand}"
+                                                                   CommandParameter="Sepia" />
+                            </MenuFlyout>
+                        </FlyoutBase.AttachedFlyout>
+                        <TextBlock x:Uid="SettingsThemes"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   Text="Themes"
+                                   FontSize="{StaticResource TextStyleMediumFontSize}"
+                                   Margin="0,0,0,6" />
+                        <Button Style="{StaticResource EmptyButtonStyle}"
+                                Tapped="UIElement_OnTapped">
+                            <localControls:ThemeFlyoutMenuItem Text="{Binding Settings.Theme, Source={StaticResource Locator}}"
+                                                               Padding="0"
+                                                               HideTick="True"
+                                                               Foreground="{ThemeResource PhoneForegroundBrush}"
+                                                               Style="{StaticResource ThemeMenuFlyoutItemStyle}"
+                                                               RequiredTheme="{Binding Settings.Theme, Source={StaticResource Locator}}" />
+                        </Button>
+                    </StackPanel>
+                </Border>
+                <Border Padding="19,12"
+                        Margin="0,6"
+                        Background="{ThemeResource AltBackgroundBrush}">
+                    <StackPanel Orientation="Vertical"
+                                x:Name="FontPanel">
+                        <FlyoutBase.AttachedFlyout>
+                            <MenuFlyout>
+                                <localControls:FontFlyoutMenuItem Style="{StaticResource FontMenuFlyoutItemStyle}"
+                                                                  ActualFont="{Binding ReaderFont}"
+                                                                  RequiredFont="Segoe"
+                                                                  FontFamily="{Binding RequiredFont, RelativeSource={RelativeSource Self}, Converter={StaticResource ReaderFontConverter}}"
+                                                                  Command="{Binding ChangeFontCommand}"
+                                                                  CommandParameter="{Binding RequiredFont, RelativeSource={RelativeSource Self}}"/>
+                                <localControls:FontFlyoutMenuItem Style="{StaticResource FontMenuFlyoutItemStyle}"
+                                                                  ActualFont="{Binding ReaderFont}"
+                                                                  RequiredFont="CourierNew"
+                                                                  FontFamily="{Binding RequiredFont, RelativeSource={RelativeSource Self}, Converter={StaticResource ReaderFontConverter}}"
+                                                                  Command="{Binding ChangeFontCommand}"
+                                                                  CommandParameter="{Binding RequiredFont, RelativeSource={RelativeSource Self}}"/>
+                                <localControls:FontFlyoutMenuItem Style="{StaticResource FontMenuFlyoutItemStyle}"
+                                                                  ActualFont="{Binding ReaderFont}"
+                                                                  RequiredFont="Georgia"
+                                                                  FontFamily="{Binding RequiredFont, RelativeSource={RelativeSource Self}, Converter={StaticResource ReaderFontConverter}}"
+                                                                  Command="{Binding ChangeFontCommand}"
+                                                                  CommandParameter="{Binding RequiredFont, RelativeSource={RelativeSource Self}}"/>
+                                <localControls:FontFlyoutMenuItem Style="{StaticResource FontMenuFlyoutItemStyle}"
+                                                                  ActualFont="{Binding ReaderFont}"
+                                                                  RequiredFont="OpenDyslexic"
+                                                                  FontFamily="{Binding RequiredFont, RelativeSource={RelativeSource Self}, Converter={StaticResource ReaderFontConverter}}"
+                                                                  Command="{Binding ChangeFontCommand}"
+                                                                  CommandParameter="{Binding RequiredFont, RelativeSource={RelativeSource Self}}" />
+                            </MenuFlyout>
+                        </FlyoutBase.AttachedFlyout>
+                        <TextBlock x:Uid="SettingsReading"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   Text="Reading"
+                                   FontSize="{StaticResource TextStyleMediumFontSize}"
+                                   Margin="0,0,0,6" />
+                        <Button Style="{StaticResource EmptyButtonStyle}"
+                                x:Name="FontButton"
+                                Tapped="FontButton_OnTapped">
+                            <localControls:FontFlyoutMenuItem Style="{StaticResource FontMenuFlyoutItemStyle}"
+                                                              RequiredFont="{Binding ReaderFont}"
+                                                              HideTick="True"
+                                                              Padding="0"
+                                                              FontFamily="Global User Interface" />
+                        </Button>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Path Data="{Binding Source={StaticResource TurtleIcon}}"
+                                  Fill="Gray"
+                                  Height="15"
+                                  Width="30"
+                                  Stretch="UniformToFill"
+                                  Margin="0,4,6,0" />
+
+                            <Slider Value="{Binding WordsPerMin, Mode=TwoWay}"
+                                    Minimum="{Binding MinRate}"
+                                    Maximum="{Binding MaxRate}"
+                                    Header="{Binding WordsPerMinuteText}"
+                                    StepFrequency="20"
+                                    Grid.Column="1" />
+                            <Path Data="{Binding Source={StaticResource HareIcon}}"
+                                  Fill="Gray"
+                                  Height="20"
+                                  Width="20"
+                                  Stretch="UniformToFill"
+                                  Margin="6,4,0,0"
+                                  Grid.Column="2" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding WordsAtATimeText}"
+                                       Style="{StaticResource BaseTextBlockStyle}"
+                                       Margin="0,2,0,0" />
+                            <localControls:SpeaderNumericUpDown Minimum="{Binding MinNumberWords}"
+                                                                 Maximum="{Binding MaxNumberWords}"
+                                                                 Value="{Binding WordsAtATime, Mode=TwoWay}"
+                                                                 ValueBarVisibility="Collapsed"
+                                                                 SmallChange="1"
+                                                                 Grid.Column="1"
+                                                                 x:Uid="NumericUpDown" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                <Border Padding="19,12"
+                        Margin="0,6"
+                        Background="{ThemeResource AltBackgroundBrush}">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock x:Uid="SettingsAccounts"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   Text="Accounts"
+                                   FontSize="{StaticResource TextStyleMediumFontSize}"
+                                   Margin="0,0,0,6" />
+                        <localControls:IsLoggedInControl IsLoggedIn="{Binding Auth.IsLoggedInToPocket, Source={StaticResource Locator}}"
+                                                         LoggedInName="{Binding Auth.LoggedInPocketUser.Username, Source={StaticResource Locator}}"
+                                                         IsEnabled="{Binding Pocket.ProgressIsVisible, Source={StaticResource Locator}, Converter={StaticResource NegativeBooleanConverter}}"
+                                                         LoginCommand="{Binding LoginWithPocketCommand}"
+                                                         LogoutCommand="{Binding Pocket.LogoutCommand, Source={StaticResource Locator}}">
+                            <localControls:IconControl IconData="{Binding Source={StaticResource PocketIcon}}"
+                                                       Height="30"
+                                                       Label="Pocket" />
+                        </localControls:IsLoggedInControl>
+
+                        <localControls:IsLoggedInControl Margin="0,-3,0,0"
+                                                         IsLoggedIn="{Binding Auth.IsLoggedIntoReadability, Source={StaticResource Locator}}"
+                                                         LoggedInName="{Binding Auth.LoggedInReadabilityUser.Name, Source={StaticResource Locator}}"
+                                                         IsEnabled="{Binding Readability.ProgressIsVisible, Source={StaticResource Locator}, Converter={StaticResource NegativeBooleanConverter}}"
+                                                         LoginCommand="{Binding LoginWithReadabilityCommand}"
+                                                         LogoutCommand="{Binding Readability.LogoutCommand, Source={StaticResource Locator}}">
+                            <localControls:IconControl IconData="{Binding Source={StaticResource ReadabilityIcon}}"
+                                                       Height="30"
+                                                       Label="Readability" />
+                        </localControls:IsLoggedInControl>
+
+                        <localControls:IsLoggedInControl Margin="0,-3,0,0"
+                                                         IsLoggedIn="{Binding Auth.IsLoggedIntoInstapaper, Source={StaticResource Locator}}"
+                                                         LoggedInName="{Binding Auth.LoggedInInstapaperUser.UserName, Source={StaticResource Locator}}"
+                                                         IsEnabled="{Binding Instapaper.ProgressIsVisible, Source={StaticResource Locator}, Converter={StaticResource NegativeBooleanConverter}}"
+                                                         LoginCommand="{Binding LoginWithInstapaperCommand}"
+                                                         LogoutCommand="{Binding Instapaper.LogoutCommand, Source={StaticResource Locator}}">
+                            <localControls:IconControl IconData="{Binding Source={StaticResource InstapaperIcon}}"
+                                                       Height="30"
+                                                       Label="Instapaper" />
+                        </localControls:IsLoggedInControl>
+                    </StackPanel>
+                </Border>
+                <Border Padding="19,12"
+                        Margin="0,6"
+                        Background="{ThemeResource AltBackgroundBrush}">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock x:Uid="SettingsTiles"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   Text="Tile"
+                                   FontSize="{StaticResource TextStyleMediumFontSize}"
+                                   Margin="0,0,0,6" />
+
+                        <CheckBox x:Uid="TransparentTile"
+                                  Content="Display transparent tiles"
+                                  IsChecked="{Binding UseTransparentTile, Mode=TwoWay}" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</views:SpeaderBasePage>
